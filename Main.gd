@@ -78,7 +78,7 @@ func _ready():
 		),
 		Vector2(
 			screenSize.x/2, screenSize.y/2
-		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.2
+		), 0.3, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.3
 	)
 	ShakeCamera.interpolate_property(
 		MainCamera, 'zoom',
@@ -101,9 +101,7 @@ func _ready():
 	# only a flag
 	ShakeCamera.interpolate_property(
 		MainCamera, 'rotating',
-		false,
-		false
-		, 0.4, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0
+		false, false ,0.4, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0
 	)
 
 
@@ -114,7 +112,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
 		back_count += 1
 		if back_count > 3:
-	        get_tree().change_scene('res://Menu.tscn')
+			get_tree().change_scene('res://Menu.tscn')
 
 
 var is_touching = false
@@ -271,3 +269,6 @@ func _on_BombInterval_timeout():
 func _on_ShakeCamera_tween_completed(object, key):
 	if key == ':rotating':
 		ShakeCamera.set_active(false)
+		MainCamera.set_offset(Vector2(
+			screenSize.x/2, screenSize.y/2
+		))
